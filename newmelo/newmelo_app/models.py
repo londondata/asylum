@@ -18,22 +18,24 @@ class Profile(models.Model):
     disposition = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     sex = models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True, related_name='profile')
 
     def __str__(self):
         return self.name
 
-class Post(models.Model):
+class Entry(models.Model):
     title = models.TextField()
     body = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True, related_name='username')
+    tag = models.TextField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True, related_name='entry')
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
 
 class Gspot(models.Model):
-    comment = models.TextField()
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null = True, blank = True, related_name='postname')
+    gspot = models.TextField()
+    entry = models.ForeignKey(Post, on_delete=models.CASCADE, null = True, blank = True, related_name='gspot')
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

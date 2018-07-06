@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'newmelo_project'
+    'newmelo_project',
+    'django_extensions'
 ]
 
 MIDDLEWARE = [
@@ -68,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'newmelo.wsgi.application'
+WSGI_APPLICATION = 'newmelo_project.wsgi.application'
 
 
 # Database
