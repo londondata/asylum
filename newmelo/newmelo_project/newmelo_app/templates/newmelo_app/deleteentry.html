@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>newmelo</title>
+  </head>
+  <body>
+    <div class="deleteentrycontainer">
+      <form method="post">{% csrf_token %}
+        Are you sure you want to delete "{{ object }}" ?
+    <input class="btn btn-primary" type="submit" value="Submit" />
+  </form>
+
+  </body>
+</html>
