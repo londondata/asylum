@@ -9,7 +9,7 @@ class UserForm(forms.ModelForm):
 class EntryForm(forms.ModelForm):
     class Meta:
         model = Entry
-        fields = ('id', 'title', 'body', 'tag')
+        fields = ('id', 'title', 'body')
 
 class ProfileForm(forms.ModelForm):
     class Meta:

@@ -9,11 +9,11 @@
   <body>
     <h1>version 2.0</h1>
     <nav class="mainlinks">
-      <a href="#">home</a>
+      <a href="{% url 'main' %}">home</a>
       <a href="#">my stuff</a>
       <a href="#">my journal</a>
-      <a href="#">new entry</a>
-      <a href="#">about</a>
+      <a href="{% url 'newentry' %}">new entry</a>
+      <a href="{% url 'about' %}">about</a>
     </nav>
     <nav class="loginlinks">
     {% if not user.is_authenticated %}
@@ -40,12 +40,12 @@
 
   	{% if not user.is_authenticated %}
   			<p>
-  				Create an account or sign in to join the madness
+  				create an account or sign in to join the madness
   			</p>
   	{% endif %}
     {% block content %}
 
     {% endblock %}
-  <footer> 2018 // Teri London // version 2.0</footer>
+  <footer> 2018 // teri london // version 2.0</footer>
   </body>
 </html>

@@ -1,4 +1,9 @@
 from django.db import models
+
+# // from bootcamp:
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+
 # Create your models here.
 
 class User(models.Model):
@@ -24,11 +29,9 @@ class Profile(models.Model):
         return self.name
 
 class Entry(models.Model):
-    title = models.TextField()
+    title = models.TextField(max_length=500)
     body = models.TextField()
-    tag = models.TextField(max_length=100)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True, related_name='entry')
-    # created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
