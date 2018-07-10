@@ -1,8 +1,22 @@
 {% extends 'newmelo_app/hq.html' %}
 
-
 {% block content %}
 
 a user's journal will go here. their profile, posts, etc.
 
+<div class="myjournalentries">
+    <h1>my entries</h1>
+    <ul>
+
+    {% for entry in entries %}
+    {% if user == entry.user %}
+    <p>
+      <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>
+    </p>
+    <p>
+      <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.body}}</a>
+    </p>
+    {% endif %}
+    {% endfor %}
+  </ul>
 {% endblock %}

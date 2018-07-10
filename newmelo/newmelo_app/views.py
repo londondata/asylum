@@ -14,15 +14,19 @@ from django.contrib.auth import login, authenticate
 
 def hq(request):
 	return render(request, 'newmelo_app/hq.html')
+
+@login_required
 def switchboard(request):
-    #TODO: If  there is a user logged in:
-    # get all entries by logged in user
-    # render switchboard with {entries: entries}
-	return render(request, 'newmelo_app/switchboard.html')
+    entries = Entry.objects.all()
+    return render(request, 'newmelo_app/switchboard.html', {'entries': entries})
+
 def about(request):
     return render(request, 'newmelo_app/about.html')
+
+@login_required
 def journal(request):
-    return render(request, 'newmelo_app/journal.html')
+    entries = Entry.objects.all()
+    return render(request, 'newmelo_app/journal.html', {'entries': entries})
 
 # USERS
 
@@ -40,27 +44,20 @@ def signup(request):
         form = UserCreationForm()
     return render(request, 'newmelo_app/signup.html', {'form': form})
 
+
 def userlist(request):
     users = Users.objects.all()
     return render(request, 'newmelo_app/userlist.html', {'users': users})
 
-# def createuser(request):
-#     form = UserForm(request.POST)
-#     if form.is_valid():
-#         form.save
-#         return redirect('home')
-#     return render(request, 'newmelo_app/createuser.html', {'form':form})
 
 def getuser(request):
     user = User.objects.get(id=pk)
     return render(request, 'newmelo_app/user/<pk>', {'users':user})
 
 # ENTRIES
-
+@login_required
 def allentries(request):
     entries = Entry.objects.all()
-    data = {}
-    data['object_list'] = entries
     return render(request, 'newmelo_app/allentries.html', {'entries': entries})
 
 @login_required
@@ -74,10 +71,10 @@ def newentry(request):
         user = request.user
         new_entry = Entry(title=title, body=body, user=user)
         new_entry.save()
-
         return redirect('switchboard')
     return render(request, 'newmelo_app/newentry.html', {'form':form})
 
+@login_required
 def editentry(request, pk):
     entry = Entry.objects.get(pk=pk)
     form = EntryForm(request.POST, instance=entry)
@@ -86,6 +83,7 @@ def editentry(request, pk):
         return redirect('switchboard')
     return render(request, 'newmelo_app/editentry.html', {'form': form})
 
+@login_required
 def deleteentry(request, pk):
     entry = get_object_or_404(entries, pk=pk)
     if request.method=='GET':
@@ -97,12 +95,13 @@ def deleteentry(request, pk):
 #     entry = Entry.objects.get(id=pk)
 #     return render(request, 'newmelo_app/entry/<int:pk>.html', {'entry': entry})
 
+@login_required
 def entrydetail(request, pk):
     entry = Entry.objects.get(id=pk)
     return render(request, 'newmelo_app/entrydetail.html', {'entry': entry})
 
 #PROFILE
-
+@login_required
 def createprofile(request):
     form = ProfileForm(request.POST)
     if form.is_valid():
@@ -110,6 +109,7 @@ def createprofile(request):
         return redirect('home')
     return render(request, 'newmelo_app/createprofile.html', {'form':form})
 
+@login_required
 def editprofile(request, pk, template_name='profile/profileform.html'):
     profile = get_object_or_404(profile, pk=pk)
     form = ProfileForm(request.PUT, instance=profile)
@@ -120,7 +120,7 @@ def editprofile(request, pk, template_name='profile/profileform.html'):
 
 
 # GSPOTS
-
+@login_required
 def creategspot(request):
     form = ProfileForm(request.POST)
     if form.is_valid():
@@ -128,6 +128,7 @@ def creategspot(request):
         return redirect('switchboard')
     return render(request, template_name, {'form':form})
 
+@login_required
 def editgspot(request, pk, template_name='gspot/gspotform.html'):
     gspot = get_object_or_404(entry, pk=pk)
     form = GspotForm(request.PUT, instance=gspot)
@@ -136,6 +137,7 @@ def editgspot(request, pk, template_name='gspot/gspotform.html'):
         return redirect('switchboard')
     return render(request, template_name, {'form': form})
 
+@login_required
 def deletegspot(request, pk):
     gspot = get_object_or_404(gspots, pk=pk)
     if request.method=='GET':

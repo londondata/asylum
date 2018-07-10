@@ -8,7 +8,7 @@
     <title>v2.0</title>
   </head>
   <body>
-    <h1>version 2.0</h1>
+    <h1>sanctuary</h1>
     <nav class="mainlinks">
       <a href="{% url 'hq' %}">hq</a>
       <a href="{% url 'switchboard' %}">switchboard</a>
@@ -32,12 +32,6 @@
           welcome home {{ user.username }}
       {% endif %}
   </div>
-  <!-- <body>
-  	{% if user.is_authenticated %}
-  			<p>
-  			    you're home.
-  			</p>
-  	{% endif %} -->
 
   	{% if not user.is_authenticated %}
   			<p>

@@ -5,12 +5,13 @@
     <div class="entrycontainer">
       <h1>all entries</h1>
       <ul>
+
       {% for entry in entries %}
       <li>
         <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>
       </li>
-
       {% endfor %}
+
     </ul>
         <h2>new entry <a href="{% url 'newentry' %}">(+)</a></h2>
 
