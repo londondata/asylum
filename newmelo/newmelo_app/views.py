@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import UserForm, ProfileForm, EntryForm, GspotForm
-from .models import User, Entry, Gspot, Profile
+from .forms import ProfileForm, EntryForm, GspotForm
+from .models import Entry, Gspot, Profile
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+
 
 # Create your views here.
 
@@ -14,6 +15,9 @@ from django.contrib.auth import login, authenticate
 def hq(request):
 	return render(request, 'newmelo_app/hq.html')
 def switchboard(request):
+    #TODO: If  there is a user logged in:
+    # get all entries by logged in user
+    # render switchboard with {entries: entries}
 	return render(request, 'newmelo_app/switchboard.html')
 def about(request):
     return render(request, 'newmelo_app/about.html')
@@ -59,12 +63,20 @@ def allentries(request):
     data['object_list'] = entries
     return render(request, 'newmelo_app/allentries.html', {'entries': entries})
 
-def newentry(request, template_name='newmelo_app/newentry.html'):
+@login_required
+def newentry(request):
+    author = request.user
+    print( author )
     form = EntryForm(request.POST)
     if form.is_valid():
-        form.save()
+        title = form.cleaned_data.get('title')
+        body = form.cleaned_data.get('body')
+        user = request.user
+        new_entry = Entry(title=title, body=body, user=user)
+        new_entry.save()
+
         return redirect('switchboard')
-    return render(request, template_name, {'form':form})
+    return render(request, 'newmelo_app/newentry.html', {'form':form})
 
 def editentry(request, pk):
     entry = Entry.objects.get(pk=pk)
@@ -74,16 +86,16 @@ def editentry(request, pk):
         return redirect('switchboard')
     return render(request, 'newmelo_app/editentry.html', {'form': form})
 
-def deleteentry(request, pk, template_name='newmelo_app/deleteentry.html'):
+def deleteentry(request, pk):
     entry = get_object_or_404(entries, pk=pk)
     if request.method=='GET':
         entry.delete()
         return redirect('switchboard')
-    return render(request, template_name, {'object': entry})
+    return render(request, 'newmelo_app/deleteentry.html', {'object': entry})
 
-def findentry(request, pk, template_name='newmelo_app/entry/<int:pk>.html'):
-    entry = Entry.objects.get(id=pk)
-    return render(request, template_name, {'entry': entry})
+# def findentry(request, pk):
+#     entry = Entry.objects.get(id=pk)
+#     return render(request, 'newmelo_app/entry/<int:pk>.html', {'entry': entry})
 
 def entrydetail(request, pk):
     entry = Entry.objects.get(id=pk)
@@ -124,9 +136,9 @@ def editgspot(request, pk, template_name='gspot/gspotform.html'):
         return redirect('switchboard')
     return render(request, template_name, {'form': form})
 
-def deletegspot(request, pk, template_name='entry/deletegspot.html'):
+def deletegspot(request, pk):
     gspot = get_object_or_404(gspots, pk=pk)
     if request.method=='GET':
         gspot.delete()
         return redirect('switchboard')
-    return render(request, template_name, {'object': gspot})
+    return render(request, 'entry/deletegspot.html', {'object': gspot})

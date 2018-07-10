@@ -22,7 +22,7 @@ from newmelo_app import views as newmelo_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('newmelo_app.urls')),
+    path('signup', newmelo_views.signup, name= 'signup'),
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^accounts/logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
-    url(r'^accounts/signup/$', newmelo_views.signup, name= 'signup'),
 ]

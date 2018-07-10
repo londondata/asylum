@@ -6,15 +6,6 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 
-class User(models.Model):
-    username = models.CharField(max_length=100, help_text="enter your username - choose wisely!")
-    user_id = models.IntegerField()
-    avatar = models.TextField()
-    password = models.TextField(max_length=100)
-
-    def __str__(self):
-        return self.name
-
 class Profile(models.Model):
     picture = models.TextField()
     name = models.CharField(max_length=150)
@@ -23,7 +14,7 @@ class Profile(models.Model):
     disposition = models.CharField(max_length=100)
     location = models.CharField(max_length=100)
     sex = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
     def __str__(self):
         return self.name
@@ -31,7 +22,10 @@ class Profile(models.Model):
 class Entry(models.Model):
     title = models.TextField(max_length=500)
     body = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True, related_name='entry')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,  related_name='entry')
+
+    def __str__(self):
+        return self.title
 
     def __unicode__(self):
         return self.title

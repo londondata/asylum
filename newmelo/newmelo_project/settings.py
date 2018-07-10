@@ -124,4 +124,4 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'newmelo_app/staticfiles')
 
-LOGIN_REDIRECT_URL = 'main'
+LOGIN_REDIRECT_URL = 'hq'

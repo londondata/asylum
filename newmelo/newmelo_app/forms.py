@@ -1,10 +1,11 @@
 from django import forms
-from .models import User, Entry, Gspot, Profile
+from django.contrib.auth.models import User
+from .models import Entry, Gspot, Profile
 
-class UserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('username', 'password', 'avatar')
+# class UserForm(forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ('username', 'password', 'avatar')
 
 class EntryForm(forms.ModelForm):
     class Meta:
