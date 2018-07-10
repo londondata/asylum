@@ -1,8 +1,9 @@
+{% extends 'newmelo_app/main.html' %}
 <h2>User List</h2>
   <ul>
   {% for user in users %}
     <li>
-      <a href="">{{user.name }}</a>
+      <a href="#">{{ user.name }}</a>
     </li>
     {% endfor %}
   </ul>

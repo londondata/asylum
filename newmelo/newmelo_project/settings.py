@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'newmelo_project',
+    'newmelo_app',
     'django_extensions'
 ]
 

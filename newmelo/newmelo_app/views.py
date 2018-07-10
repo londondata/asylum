@@ -1,15 +1,24 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import User, Post, Profile, Gspot
+from .models import User, Entry, Profile, Gspot
 
 from django.forms import ModelForm
 
 # Create your views here.
 
+#MAIN SITE VIEWS
+
+def main(request):
+	return render(request, 'newmelo_app/main.html')
+def home(request):
+	return render(request, 'newmelo_app/home.html')
+def about(request):
+    return render(request, 'newmelo_app/about.html')
+
 # USERS
 
-class UserForm(ModelForm)
+class UserForm(ModelForm):
     class Meta:
-        model = user
+        model = User
         fields = ['username', 'password', 'avatar']
 
 def userlist(request):
@@ -23,33 +32,36 @@ def createuser(request):
         return redirect('home')
     return render(request, 'newmelo_app/createuser.html', {'form':form})
 
+def getuser(request):
+    user = User.objects.get(id=pk)
+    return render(request, 'newmelo_app/user/<pk>', {'users':user})
 
 # ENTRIES
 
 class EntryForm(ModelForm):
     class Meta:
-        model = post
-        fields = ['id', 'title', 'body', 'user', 'tag', 'created']
+        model = Entry
+        fields = ['id', 'title', 'body', 'user', 'tag']
 
-def allentries(request, template_name='entry/allentries.html'):
-    entries = entry.objects.all()
+def allentries(request, template_name='newmelo_app/allentries.html'):
+    entries = Entry.objects.all()
     data = {}
     data['object_list'] = entries
-    return render(request, template_name, data)
+    return render(request, template_name, {entries: entries})
 
-def newentry(request):
+def newentry(request, template_name='newmelo_app/newentry.html'):
     form = EntryForm(request.POST)
     if form.is_valid():
         form.save()
-        return redirect('entry:allentries')
+        return redirect('entries:allentries')
     return render(request, template_name, {'form':form})
 
-def editentry(request, pk, template_name='entry/entryform.html'):
+def editentry(request, pk, template_name='entry/editentry.html'):
     entry = get_object_or_404(entry, pk=pk)
     form = EntryForm(request.PUT, instance=entry)
     if form.is_valid():
         form.save()
-        return redirect('entry:allentries')
+        return redirect('entries:allentries')
     return render(request, template_name, {'form': form})
 
 def deleteentry(request, pk, template_name='entry/deleteentry.html'):
@@ -63,7 +75,7 @@ def deleteentry(request, pk, template_name='entry/deleteentry.html'):
 
 class ProfileForm(ModelForm):
     class Meta:
-        model = profile
+        model = Profile
         fields = ['name', 'picture', 'quote', 'birthday', 'disposition', 'location', 'sex']
 
 def createprofile(request):
@@ -79,14 +91,14 @@ def editprofile(request, pk, template_name='profile/profileform.html'):
     if form.is_valid():
         form.save()
         return redirect('home')
-    return render(request, 'newmelo_app/editprofile.html' {'form': form})
+    return render(request, 'newmelo_app/editprofile.html', {'form': form})
 
 #GSPOTS
 
 class GspotForm(ModelForm):
     class Meta:
-        model = gspot
-        fields = ['gspot', 'entry', 'created']
+        model = Gspot
+        fields = ['gspot', 'entry']
 
 def creategspot(request):
     form = ProfileForm(request.POST)

@@ -1,3 +1,5 @@
+{% extends 'newmelo_app/main.html' %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -8,7 +10,7 @@
     <div class="entrycontainer">
       <h1>All Entries</h1>
       <ul>
-        {% for entry in object_list %}
+        {% for entry in entries %}
         <li><p>Entry ID: <a href="{% url "entries:editentry" entry.id %}">{{ entry.id }}</a></p>
           <p>Title: {{ entry.title }}</p>
           <a href="{% url "entries:deleteentry" entry.id %}">Delete</a>
@@ -16,6 +18,5 @@
           {% endfor %}
         </ul>
 
-          <a href="{% url "entries:newentry" %}">New Entry</a>
   </body>
 </html>

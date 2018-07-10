@@ -14,18 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from . import views
+from django.urls import path, include
+from django.conf.urls import include, url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.userlist, name='userlist'),
-    url(r'^new$', views.createuser, name='createuser'),
-    url(r'^$', views.allentries, name='allentries'),
-    url(r'^new$', views.newentry, name='newentry'),
-    url(r'^edit/(?P<pk>\d+)$', views.editentry, name='editentry'),
-    url(r'^delete/(?P<pk>\d+)$', views.deleteentry, name='deleteentry'),
-    url(r'^new$', views.createprofile, name='createprofile'),
-    url(r'^edit/(?P<pk>\d+)$', views.editprofile, name='editprofile'),
-
+    url(r'', include('newmelo_app.urls')),
 ]
