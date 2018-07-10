@@ -4,10 +4,11 @@ from . import views
 
 
 urlpatterns =[
-    path('', views.main, name='main'),
+    path('', views.hq, name='hq'),
     path('about', views.about, name='about'),
     path('newentry', views.newentry, name='newentry'),
     path('userlist', views.userlist, name='userlist'),
+    path('switchboard', views.switchboard, name='switchboard'),
 
     url(r'users/(?P<pk>\d+)$', views.getuser, name='getuser'),
     # url(r'^new$', views.createuser, name='createuser'),

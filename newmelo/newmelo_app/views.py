@@ -10,10 +10,10 @@ from django.contrib.auth import login, authenticate
 
 #MAIN SITE VIEWS
 
-def main(request):
-	return render(request, 'newmelo_app/main.html')
-def home(request):
-	return render(request, 'newmelo_app/home.html')
+def hq(request):
+	return render(request, 'newmelo_app/hq.html')
+def switchboard(request):
+	return render(request, 'newmelo_app/switchboard.html')
 def about(request):
     return render(request, 'newmelo_app/about.html')
 
@@ -28,7 +28,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username = username, password = raw_password)
             login(request, user)
-            return redirect('main')
+            return redirect('hq')
     else:
         form = UserCreationForm()
     return render(request, 'newmelo_app/signup.html', {'form': form})
@@ -60,7 +60,7 @@ def newentry(request, template_name='newmelo_app/newentry.html'):
     form = EntryForm(request.POST)
     if form.is_valid():
         form.save()
-        return redirect('entries:allentries')
+        return redirect('main')
     return render(request, template_name, {'form':form})
 
 def editentry(request, pk, template_name='newmelo_app/editentry.html'):

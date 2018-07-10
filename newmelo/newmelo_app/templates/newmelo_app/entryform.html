@@ -1,0 +1,16 @@
+{% extends 'newmelo_app/main.html' %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>newmelo</title>
+  </head>
+  <body>
+    <div class="newentrycontainer">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-primary" type="submit" value="Submit" />
+
+  </body>
+</html>
