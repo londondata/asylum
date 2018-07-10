@@ -4,6 +4,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
     <title>v2.0</title>
   </head>
   <body>
@@ -11,7 +12,7 @@
     <nav class="mainlinks">
       <a href="{% url 'hq' %}">hq</a>
       <a href="{% url 'switchboard' %}">switchboard</a>
-      <a href="#">journal</a>
+      <a href="{% url 'journal' %}">journal</a>
       <a href="{% url 'newentry' %}">new entry</a>
       <a href="{% url 'about' %}">about</a>
     </nav>
@@ -28,15 +29,15 @@
   </nav>
 <div container="frontpagewelcome">
   {% if user.is_authenticated %}
-          Welcome, {{ user.username }}
+          welcome home {{ user.username }}
       {% endif %}
   </div>
-  <body>
+  <!-- <body>
   	{% if user.is_authenticated %}
   			<p>
   			    you're home.
   			</p>
-  	{% endif %}
+  	{% endif %} -->
 
   	{% if not user.is_authenticated %}
   			<p>

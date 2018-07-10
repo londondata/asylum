@@ -16,6 +16,8 @@ def switchboard(request):
 	return render(request, 'newmelo_app/switchboard.html')
 def about(request):
     return render(request, 'newmelo_app/about.html')
+def journal(request):
+    return render(request, 'newmelo_app/journal.html')
 
 # USERS
 
@@ -60,7 +62,7 @@ def newentry(request, template_name='newmelo_app/newentry.html'):
     form = EntryForm(request.POST)
     if form.is_valid():
         form.save()
-        return redirect('main')
+        return redirect('switchboard')
     return render(request, template_name, {'form':form})
 
 def editentry(request, pk, template_name='newmelo_app/editentry.html'):
@@ -68,14 +70,14 @@ def editentry(request, pk, template_name='newmelo_app/editentry.html'):
     form = EntryForm(request.PUT, instance=entry)
     if form.is_valid():
         form.save()
-        return redirect('entries:allentries')
+        return redirect('switchboard')
     return render(request, template_name, {'form': form})
 
 def deleteentry(request, pk, template_name='newmelo_app/deleteentry.html'):
     entry = get_object_or_404(entries, pk=pk)
     if request.method=='GET':
         entry.delete()
-        return redirect('entries:allentries')
+        return redirect('switchboard')
     return render(request, template_name, {'object': entry})
 
 #PROFILE
@@ -92,7 +94,7 @@ def editprofile(request, pk, template_name='profile/profileform.html'):
     form = ProfileForm(request.PUT, instance=profile)
     if form.is_valid():
         form.save()
-        return redirect('home')
+        return redirect('switchboard')
     return render(request, 'newmelo_app/editprofile.html', {'form': form})
 
 #GSPOTS
@@ -101,7 +103,7 @@ def creategspot(request):
     form = ProfileForm(request.POST)
     if form.is_valid():
         form.save
-        return redirect('home')
+        return redirect('switchboard')
     return render(request, template_name, {'form':form})
 
 def editgspot(request, pk, template_name='gspot/gspotform.html'):
@@ -109,12 +111,12 @@ def editgspot(request, pk, template_name='gspot/gspotform.html'):
     form = GspotForm(request.PUT, instance=gspot)
     if form.is_valid():
         form.save()
-        return redirect('home')
+        return redirect('switchboard')
     return render(request, template_name, {'form': form})
 
 def deletegspot(request, pk, template_name='entry/deletegspot.html'):
     gspot = get_object_or_404(gspots, pk=pk)
     if request.method=='GET':
         gspot.delete()
-        return redirect('home')
+        return redirect('switchboard')
     return render(request, template_name, {'object': gspot})

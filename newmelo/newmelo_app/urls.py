@@ -9,6 +9,7 @@ urlpatterns =[
     path('newentry', views.newentry, name='newentry'),
     path('userlist', views.userlist, name='userlist'),
     path('switchboard', views.switchboard, name='switchboard'),
+    path('journal', views.journal, name='journal'),
 
     url(r'users/(?P<pk>\d+)$', views.getuser, name='getuser'),
     # url(r'^new$', views.createuser, name='createuser'),
