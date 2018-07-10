@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import UserForm, ProfileForm, EntryForm, GspotForm
+from .models import User, Entry, Gspot, Profile
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -52,11 +53,11 @@ def getuser(request):
 
 # ENTRIES
 
-def allentries(request, template_name='newmelo_app/allentries.html'):
+def allentries(request):
     entries = Entry.objects.all()
     data = {}
     data['object_list'] = entries
-    return render(request, template_name, {entries: entries})
+    return render(request, 'newmelo_app/allentries.html', {'entries': entries})
 
 def newentry(request, template_name='newmelo_app/newentry.html'):
     form = EntryForm(request.POST)
@@ -65,13 +66,13 @@ def newentry(request, template_name='newmelo_app/newentry.html'):
         return redirect('switchboard')
     return render(request, template_name, {'form':form})
 
-def editentry(request, pk, template_name='newmelo_app/editentry.html'):
-    entry = get_object_or_404(entry, pk=pk)
-    form = EntryForm(request.PUT, instance=entry)
+def editentry(request, pk):
+    entry = Entry.objects.get(pk=pk)
+    form = EntryForm(request.POST, instance=entry)
     if form.is_valid():
         form.save()
         return redirect('switchboard')
-    return render(request, template_name, {'form': form})
+    return render(request, 'newmelo_app/editentry.html', {'form': form})
 
 def deleteentry(request, pk, template_name='newmelo_app/deleteentry.html'):
     entry = get_object_or_404(entries, pk=pk)
@@ -79,6 +80,14 @@ def deleteentry(request, pk, template_name='newmelo_app/deleteentry.html'):
         entry.delete()
         return redirect('switchboard')
     return render(request, template_name, {'object': entry})
+
+def findentry(request, pk, template_name='newmelo_app/entry/<int:pk>.html'):
+    entry = Entry.objects.get(id=pk)
+    return render(request, template_name, {'entry': entry})
+
+def entrydetail(request, pk):
+    entry = Entry.objects.get(id=pk)
+    return render(request, 'newmelo_app/entrydetail.html', {'entry': entry})
 
 #PROFILE
 
@@ -97,7 +106,8 @@ def editprofile(request, pk, template_name='profile/profileform.html'):
         return redirect('switchboard')
     return render(request, 'newmelo_app/editprofile.html', {'form': form})
 
-#GSPOTS
+
+# GSPOTS
 
 def creategspot(request):
     form = ProfileForm(request.POST)

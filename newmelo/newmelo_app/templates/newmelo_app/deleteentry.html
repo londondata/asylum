@@ -1,4 +1,7 @@
 {% extends 'newmelo_app/hq.html' %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -10,7 +13,5 @@
       <form method="post">{% csrf_token %}
         Are you sure you want to delete "{{ object }}" ?
     <input class="btn btn-primary" type="submit" value="Submit" />
-  </form>
 
-  </body>
-</html>
+{% endblock %}

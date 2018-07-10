@@ -1,22 +1,17 @@
 {% extends 'newmelo_app/hq.html' %}
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>newmelo</title>
-  </head>
-  <body>
-    <div class="entrycontainer">
-      <h1>All Entries</h1>
-      <ul>
-        {% for entry in entries %}
-        <li><p>Entry ID: <a href="{% url "entries:editentry" entry.id %}">{{ entry.id }}</a></p>
-          <p>Title: {{ entry.title }}</p>
-          <a href="{% url "entries:deleteentry" entry.id %}">Delete</a>
-        </li>
-          {% endfor %}
-        </ul>
+{% block content %}
 
-  </body>
-</html>
+    <div class="entrycontainer">
+      <h1>all entries</h1>
+      <ul>
+      {% for entry in entries %}
+      <li>
+        <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>
+      </li>
+
+      {% endfor %}
+    </ul>
+        <h2>new entry <a href="{% url 'newentry' %}">(+)</a></h2>
+
+{% endblock %}

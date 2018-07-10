@@ -33,8 +33,8 @@ class Entry(models.Model):
     body = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank = True, related_name='entry')
 
-    def __str__(self):
-        return self.name
+    def __unicode__(self):
+        return self.title
 
 class Gspot(models.Model):
     gspot = models.TextField()

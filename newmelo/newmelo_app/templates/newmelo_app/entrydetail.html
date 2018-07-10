@@ -1,0 +1,8 @@
+{% extends 'newmelo_app/hq.html' %}
+
+{% block content %}
+
+<h2>Title: {{ entry.title }} <a href="{% url 'editentry' pk=entry.pk %}">(edit)</a></h2>
+<h4>Body: {{ entry.body }}</h4>
+
+{% endblock %}
