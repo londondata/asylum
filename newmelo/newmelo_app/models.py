@@ -5,7 +5,7 @@ class User(models.Model):
     username = models.CharField(max_length=100, help_text="enter your username - choose wisely!")
     user_id = models.IntegerField()
     avatar = models.TextField()
-    password = models.TextField()
+    password = models.TextField(max_length=100)
 
     def __str__(self):
         return self.name

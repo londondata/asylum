@@ -1,8 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import User, Entry, Profile, Gspot
 
-from django.forms import ModelForm
-
 # Create your views here.
 
 #MAIN SITE VIEWS
@@ -15,11 +13,6 @@ def about(request):
     return render(request, 'newmelo_app/about.html')
 
 # USERS
-
-class UserForm(ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'password', 'avatar']
 
 def userlist(request):
     users = Users.objects.all()
@@ -38,11 +31,6 @@ def getuser(request):
 
 # ENTRIES
 
-class EntryForm(ModelForm):
-    class Meta:
-        model = Entry
-        fields = ['id', 'title', 'body', 'user', 'tag']
-
 def allentries(request, template_name='newmelo_app/allentries.html'):
     entries = Entry.objects.all()
     data = {}
@@ -56,7 +44,7 @@ def newentry(request, template_name='newmelo_app/newentry.html'):
         return redirect('entries:allentries')
     return render(request, template_name, {'form':form})
 
-def editentry(request, pk, template_name='entry/editentry.html'):
+def editentry(request, pk, template_name='newmelo_app/editentry.html'):
     entry = get_object_or_404(entry, pk=pk)
     form = EntryForm(request.PUT, instance=entry)
     if form.is_valid():
@@ -64,7 +52,7 @@ def editentry(request, pk, template_name='entry/editentry.html'):
         return redirect('entries:allentries')
     return render(request, template_name, {'form': form})
 
-def deleteentry(request, pk, template_name='entry/deleteentry.html'):
+def deleteentry(request, pk, template_name='newmelo_app/deleteentry.html'):
     entry = get_object_or_404(entries, pk=pk)
     if request.method=='GET':
         entry.delete()
@@ -72,11 +60,6 @@ def deleteentry(request, pk, template_name='entry/deleteentry.html'):
     return render(request, template_name, {'object': entry})
 
 #PROFILE
-
-class ProfileForm(ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['name', 'picture', 'quote', 'birthday', 'disposition', 'location', 'sex']
 
 def createprofile(request):
     form = ProfileForm(request.POST)
@@ -94,11 +77,6 @@ def editprofile(request, pk, template_name='profile/profileform.html'):
     return render(request, 'newmelo_app/editprofile.html', {'form': form})
 
 #GSPOTS
-
-class GspotForm(ModelForm):
-    class Meta:
-        model = Gspot
-        fields = ['gspot', 'entry']
 
 def creategspot(request):
     form = ProfileForm(request.POST)
