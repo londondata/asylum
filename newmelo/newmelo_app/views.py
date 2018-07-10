@@ -37,12 +37,12 @@ def userlist(request):
     users = Users.objects.all()
     return render(request, 'newmelo_app/userlist.html', {'users': users})
 
-def createuser(request):
-    form = UserForm(request.POST)
-    if form.is_valid():
-        form.save
-        return redirect('home')
-    return render(request, 'newmelo_app/createuser.html', {'form':form})
+# def createuser(request):
+#     form = UserForm(request.POST)
+#     if form.is_valid():
+#         form.save
+#         return redirect('home')
+#     return render(request, 'newmelo_app/createuser.html', {'form':form})
 
 def getuser(request):
     user = User.objects.get(id=pk)
