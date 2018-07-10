@@ -8,13 +8,41 @@
   </head>
   <body>
     <h1>version 2.0</h1>
-    <nav>
+    <nav class="mainlinks">
       <a href="#">home</a>
       <a href="#">my stuff</a>
       <a href="#">my journal</a>
       <a href="#">new entry</a>
       <a href="#">about</a>
     </nav>
+    <nav class="loginlinks">
+    {% if not user.is_authenticated %}
+      <a href="{% url 'login' %}">Log In</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <div class="login-form">
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    {% endif %}
+  </nav>
+<div container="frontpagewelcome">
+  {% if user.is_authenticated %}
+          Welcome, {{ user.username }}
+      {% endif %}
+  </div>
+  <body>
+  	{% if user.is_authenticated %}
+  			<p>
+  			    you're home.
+  			</p>
+  	{% endif %}
+
+  	{% if not user.is_authenticated %}
+  			<p>
+  				Create an account or sign in to join the madness
+  			</p>
+  	{% endif %}
     {% block content %}
 
     {% endblock %}

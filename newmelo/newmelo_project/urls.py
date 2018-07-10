@@ -16,8 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import include, url
+from django.contrib.auth import views as auth_views
+from newmelo_app import views as newmelo_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'', include('newmelo_app.urls')),
+    url(r'^accounts/login/$', auth_views.login, name='login'),
+    url(r'^accounts/logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^accounts/signup/$', newmelo_views.signup, name= 'signup'),
 ]

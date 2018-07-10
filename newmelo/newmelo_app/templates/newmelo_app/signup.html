@@ -1,0 +1,21 @@
+{% extends 'newmelo_app/main.html' %}
+
+  {% block content %}
+    <h2 class="signUpQuestion">Are you sure you want to sign up for this disaster community??</h2>
+      <form method="POST">
+        {% csrf_token %}
+        {% for field in form.visible_fields %}
+       <div class="form-group signUpForm">
+         <div class="fieldLabels">{{ field.label_tag }}
+         {{ field }}
+         </div>
+         {% if field.help_text %}
+           <small class="form-text text-muted"></small>
+         {% endif %}
+
+       </div>
+       {% endfor %}
+        <button type="submit" class="btn btn-primary btn-sm btn-red moveCenter">you're all mine now, bitch</button>
+      </form>
+
+  {% endblock %}
