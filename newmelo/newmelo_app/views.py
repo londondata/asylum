@@ -54,6 +54,7 @@ def getuser(request):
     user = User.objects.get(id=pk)
     return render(request, 'newmelo_app/user/<pk>', {'users':user})
 
+
 # ENTRIES
 @login_required
 def allentries(request):
@@ -77,19 +78,23 @@ def newentry(request):
 @login_required
 def editentry(request, pk):
     entry = Entry.objects.get(pk=pk)
-    form = EntryForm(request.POST, instance=entry)
+    form = EntryForm(request.PUT, instance=entry)
     if form.is_valid():
-        form.save()
+        title = form.cleaned_data.get('title')
+        body = form.cleaned_data.get('body')
+        user = request.user
+        update_entry = Entry(title=title, body=body, user=user)
+        update_entry.save()
         return redirect('switchboard')
     return render(request, 'newmelo_app/editentry.html', {'form': form})
 
 @login_required
 def deleteentry(request, pk):
-    entry = get_object_or_404(entries, pk=pk)
-    if request.method=='GET':
-        entry.delete()
+    entry = Entry.objects.get(pk=pk)
+    if request.method=='POST':
+        Entry.objects.get(pk = pk).delete()
         return redirect('switchboard')
-    return render(request, 'newmelo_app/deleteentry.html', {'object': entry})
+    return render(request, 'newmelo_app/deleteentry.html' )
 
 # def findentry(request, pk):
 #     entry = Entry.objects.get(id=pk)

@@ -10,12 +10,14 @@ a user's journal will go here. their profile, posts, etc.
 
     {% for entry in entries %}
     {% if user == entry.user %}
+<div class="singlejournalentry">
     <p>
       <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>
+      {{entry.body}}</a>
     </p>
+</div>
     <p>
-      <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.body}}</a>
-    </p>
+</div>
     {% endif %}
     {% endfor %}
   </ul>

@@ -2,7 +2,9 @@
 
 {% block content %}
 
-<h2>Title: {{ entry.title }} <a href="{% url 'editentry' pk=entry.pk %}">(edit)</a></h2>
+<h2>Title: {{ entry.title }}</h2>
 <h4>Body: {{ entry.body }}</h4>
+<a href="{% url 'editentry' pk=entry.pk %}">(edit)</a>
+<a href="{% url 'deleteentry' pk=entry.pk %}">(delete)</a>
 
 {% endblock %}
