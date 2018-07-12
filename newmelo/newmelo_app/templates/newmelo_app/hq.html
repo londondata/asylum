@@ -16,7 +16,11 @@
     <nav class="mainlinks">
       <a href="{% url 'hq' %}">hq</a>
       <a href="{% url 'switchboard' %}">switchboard</a>
-      <a href="{% url 'journal' pk=user.pk %}">journal</a>
+      {% if user.is_authenticated %}
+        <div>
+          <a href="{% url 'journal' pk=user.pk %}">journal</a>
+        </div>
+      {% endif %}
       <a href="{% url 'newentry' %}">new entry</a>
       <a href="{% url 'about' %}">about</a>
     </nav>
@@ -43,9 +47,9 @@
   			</p>
   	{% endif %}
 
-  {% url 'editentry' pk=entry.pk %}
-
     {% block content %}
+
+
 
     {% endblock %}
 </div>
