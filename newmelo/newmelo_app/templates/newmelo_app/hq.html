@@ -4,49 +4,51 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="{% static './css/main.css' %}">
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-<script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-<script src="semantic/dist/semantic.min.js"></script>
+    <!-- <link rel="stylesheet" href="{% static './css/main.css' %}"> -->
     <title>v2.0</title>
   </head>
   <body>
-    <h1>version 2.0</h1>
+    <header class="mainheader">
+    <h1>asylum</h1>
+  </header>
+  <div class="background">
+    <nav class="fullnav">
     <nav class="mainlinks">
       <a href="{% url 'hq' %}">hq</a>
       <a href="{% url 'switchboard' %}">switchboard</a>
-      <a href="{% url 'journal' %}">journal</a>
+      <a href="{% url 'journal' pk=user.pk %}">journal</a>
       <a href="{% url 'newentry' %}">new entry</a>
       <a href="{% url 'about' %}">about</a>
     </nav>
     <nav class="loginlinks">
     {% if not user.is_authenticated %}
-      <a href="{% url 'login' %}">Log In</a>
-      <a href="{% url 'signup' %}">Sign Up</a>
+      <a href="{% url 'login' %}">login</a>
+      <a href="{% url 'signup' %}">sign up</a>
     {% endif %}
     {% if user.is_authenticated %}
       <div class="login-form">
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'logout' %}">logout</a>
       </div>
     {% endif %}
   </nav>
-<div container="frontpagewelcome">
-  {% if user.is_authenticated %}
-          welcome home {{ user.username }}
-      {% endif %}
-  </div>
-
+</nav>
+  <div container="frontpagewelcome">
+    {% if user.is_authenticated %}
+            welcome home {{ user.username }}
+        {% endif %}
+    </div>
   	{% if not user.is_authenticated %}
   			<p>
-  				create an account or sign in to join the madness
+  				create an account or sign in to enter the asylum
   			</p>
   	{% endif %}
+
+  {% url 'editentry' pk=entry.pk %}
+
     {% block content %}
 
     {% endblock %}
+</div>
   <footer> 2018 // teri london // version 2.0</footer>
   </body>
 </html>

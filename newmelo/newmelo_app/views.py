@@ -15,6 +15,9 @@ from django.contrib.auth import login, authenticate
 def hq(request):
 	return render(request, 'newmelo_app/hq.html')
 
+def frontpage(request):
+	return render(request, 'newmelo_app/frontpage.html')
+
 @login_required
 def switchboard(request):
     entries = Entry.objects.all()
@@ -24,7 +27,8 @@ def about(request):
     return render(request, 'newmelo_app/about.html')
 
 @login_required
-def journal(request):
+def journal(request, pk):
+	journal = User.objects.get(pk=pk)
     entries = Entry.objects.all()
     return render(request, 'newmelo_app/journal.html', {'entries': entries})
 
@@ -64,7 +68,6 @@ def allentries(request):
 @login_required
 def newentry(request):
     author = request.user
-    print( author )
     form = EntryForm(request.POST)
     if form.is_valid():
         title = form.cleaned_data.get('title')
@@ -78,15 +81,14 @@ def newentry(request):
 @login_required
 def editentry(request, pk):
     entry = Entry.objects.get(pk=pk)
-    form = EntryForm(request.PUT, instance=entry)
-    if form.is_valid():
-        title = form.cleaned_data.get('title')
-        body = form.cleaned_data.get('body')
-        user = request.user
-        update_entry = Entry(title=title, body=body, user=user)
-        update_entry.save()
-        return redirect('switchboard')
-    return render(request, 'newmelo_app/editentry.html', {'form': form})
+    if request.method == 'POST':
+        form = EntryForm(request.POST, instance = entry)
+        if form.is_valid:
+            entry = form.save()
+            return redirect('switchboard')
+    else:
+        form = EntryForm(instance = entry)
+        return render(request, 'newmelo_app/editentry.html', {'form': form})
 
 @login_required
 def deleteentry(request, pk):
@@ -94,7 +96,7 @@ def deleteentry(request, pk):
     if request.method=='POST':
         Entry.objects.get(pk = pk).delete()
         return redirect('switchboard')
-    return render(request, 'newmelo_app/deleteentry.html' )
+    return render(request, 'newmelo_app/deleteentry.html')
 
 # def findentry(request, pk):
 #     entry = Entry.objects.get(id=pk)

@@ -1,7 +1,7 @@
 {% extends 'newmelo_app/hq.html' %}
 
   {% block content %}
-    <h2 class="signUpQuestion">are you sure you want to sign up for this? we'll take you straight to hell in a handbasket</h2>
+    <h2 class="signUpQuestion">are you sure you want to enter the asylum? we'll take you straight to hell in a handbasket</h2>
       <form method="POST">
         {% csrf_token %}
         {% for field in form.visible_fields %}

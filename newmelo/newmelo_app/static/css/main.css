@@ -1,14 +1,86 @@
+/* FP: */
+
 * {
-  border: 5px solid black,
+  border: 2px solid black;
   font-family: 'Verdana', sans-serif;
 }
 
-nav {
-  font-family: 'Verdana', sans-serif;
+.background {
+  background-color: #676B86;
 }
+
+.mainheader {
+  color: #FFFFFF;
+  width: 100%;
+	height: 5em;
+	background-color: #000000;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.fullnav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Verdana', sans-serif;
+  background-color: #000000;
+}
+
+.mainlinks {
+  color: #FFFFFF;
+}
+
+a:link {
+    color: #9196BD;
+}
+
+a:visited {
+    color: #D3D3DC;
+}
+
+/* mouse over link */
+a:hover {
+    color: hotpink;
+}
+
+.frontpage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.fpp {
+  border: 10px;
+  border-color: #9196BD;
+  background-color: #D3D3DC;
+  color: #000000;
+  width: 45%;
+  height: 60%;
+}
+
+.fppheader {
+  color: #FFFFFF;
+  height: 8%;
+  text-size: .9em;
+  background-color: #000000;
+}
+
+/* .fpa {
+  max-width: 50px;
+  height: auto;
+} */
 
 body {
   font-family: 'Verdana', sans-serif;
   font-size: .85em;
-  border: 5px solid black,
+}
+
+/* SWITCHBOARD: */
+
+.allentrycontainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
