@@ -4,25 +4,29 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <!-- <link rel="stylesheet" href="{% static './css/main.css' %}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css"> -->
+    <link rel="stylesheet" href="{% static './css/semantic.css' %}">
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
     <title>v2.0</title>
   </head>
   <body>
     <header class="mainheader">
     <h1>asylum</h1>
+    <!-- <p><h3>your antisocial sanctuary<h3> -->
   </header>
   <div class="background">
     <nav class="fullnav">
     <nav class="mainlinks">
       <a href="{% url 'hq' %}">hq</a>
-      <a href="{% url 'switchboard' %}">switchboard</a>
+      <a href="{% url 'about' %}">about</a>
+    <!-- <nav class="usernav"> -->
       {% if user.is_authenticated %}
+      <a href="{% url 'switchboard' %}">switchboard</a>
         <div>
           <a href="{% url 'journal' pk=user.pk %}">journal</a>
         </div>
-      {% endif %}
       <a href="{% url 'newentry' %}">new entry</a>
-      <a href="{% url 'about' %}">about</a>
+      {% endif %}
     </nav>
     <nav class="loginlinks">
     {% if not user.is_authenticated %}
@@ -49,10 +53,8 @@
 
     {% block content %}
 
-
-
     {% endblock %}
 </div>
-  <footer> 2018 // teri london // version 2.0</footer>
+  <footer class="footer"> 2018 // teri london // all the love in the world</footer>
   </body>
 </html>

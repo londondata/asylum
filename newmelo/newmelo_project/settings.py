@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '79@##mk-arj9b^+z@!(2nnj-rf_wgv+kp+!jk+jysq^n2^my1f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['.herokuapp']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -132,7 +132,7 @@ STATICFILES_DIRS = (
 
 LOGIN_REDIRECT_URL = 'hq'
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(conn_max_age=500)
+# DATABASES['default'].update(db_from_env)
 
 django_heroku.settings(locals())
