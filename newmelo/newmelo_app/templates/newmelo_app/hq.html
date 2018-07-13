@@ -7,12 +7,13 @@
     <!-- <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css"> -->
     <link rel="stylesheet" href="{% static './css/semantic.css' %}">
     <link rel="stylesheet" href="{% static './css/main.css' %}">
-    <title>v2.0</title>
+    <link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+    <title>asylum</title>
   </head>
   <body>
     <header class="mainheader">
     <h1>asylum</h1>
-    <!-- <p><h3>your antisocial sanctuary<h3> -->
+    <h4>your antisocial sanctuary<h4>
   </header>
   <div class="background">
     <nav class="fullnav">
@@ -21,9 +22,7 @@
       <a href="{% url 'about' %}">about</a>
       {% if user.is_authenticated %}
       <a href="{% url 'switchboard' %}">switchboard</a>
-        <div>
-          <a href="{% url 'journal' pk=user.pk %}">journal</a>
-        </div>
+      <a href="{% url 'journal' pk=user.pk %}">journal</a>
       <a href="{% url 'newentry' %}">new entry</a>
       {% endif %}
     </nav>
@@ -54,6 +53,8 @@
 
     {% endblock %}
 </div>
-  <footer class="footer"> 2018 // teri london // all the love in the world</footer>
+  <footer class="footer">
+      <span class="footerinfo">2018 // teri london // all the love in the world</span>
+  </footer>
   </body>
 </html>

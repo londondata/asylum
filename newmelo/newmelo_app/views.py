@@ -48,10 +48,10 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username = username, password = raw_password)
             login(request, user)
-            return redirect('hq')
+            return redirect('frontpage')
     else:
         form = UserCreationForm()
-    return render(request, 'newmelo_app/about.html', {'form': form})
+    return render(request, 'newmelo_app/signup.html', {'form': form})
 
 
 def userlist(request):
