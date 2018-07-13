@@ -1,23 +1,24 @@
 {% extends 'newmelo_app/hq.html' %}
 
 {% block content %}
-
-here i will put journal user feeds and all of the nav options for new entry, edit entry, edit profile.
+<span class="switchboardtitle">switchboard</span>
+<div class="switchboardcontainer">
 <div class="allentrycontainer">
   <h1>all entries</h1>
   <ul>
 
   {% for entry in entries %}
   <li>
-    <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>: <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.user}}</a>
+  title:<a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>user: <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.user}}</a>
   </li>
 
   {% endfor %}
 </ul>
+</div>
 <div class="myentrycontainer">
   <h1>my entries</h1>
-  <ul>
 
+  <ul>title:
   {% for entry in entries %}
   {% if user == entry.user %}
   <li>
@@ -26,5 +27,6 @@ here i will put journal user feeds and all of the nav options for new entry, edi
   {% endif %}
   {% endfor %}
 </ul>
+</div>
 
 {% endblock %}
