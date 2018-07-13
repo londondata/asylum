@@ -27,19 +27,15 @@ def about(request):
     return render(request, 'newmelo_app/about.html')
 
 # @login_required
-# def journal(request, pk):
-# 	journal = User.objects.get(pk=pk)
-# 	entries = Entry.objects.all()
-#     return render(request, 'newmelo_app/journal.html', {'entries': entries})
-
-@login_required
 def journal(request, pk):
 	if request.user.is_authenticated:
 		entries = Entry.objects.filter(user=pk)
 		return render(request, 'newmelo_app/journal.html', {'entries': entries})
 	else:
 		form = UserCreationForm()
-		return redirect(request, 'newmelo_app/signup.html', {'form': form})
+		return redirect(request, 'newmelo_app/signup.html', {'form':form})
+
+
 
 # USERS
 
@@ -55,7 +51,7 @@ def signup(request):
             return redirect('hq')
     else:
         form = UserCreationForm()
-    return render(request, 'newmelo_app/signup.html', {'form': form})
+    return render(request, 'newmelo_app/about.html', {'form': form})
 
 
 def userlist(request):
