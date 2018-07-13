@@ -8,9 +8,9 @@
   <ul>
 
   {% for entry in entries %}
-  <li>
+  <ul>
   title:<a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>user: <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.user}}</a>
-  </li>
+</ul>
 
   {% endfor %}
 </ul>
@@ -18,12 +18,12 @@
 <div class="myentrycontainer">
   <h1>my entries</h1>
 
-  <ul>title:
+  <ul>
   {% for entry in entries %}
   {% if user == entry.user %}
-  <li>
-    <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>
-  </li>
+  <ul>
+    title:<a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>
+  </ul>
   {% endif %}
   {% endfor %}
 </ul>
