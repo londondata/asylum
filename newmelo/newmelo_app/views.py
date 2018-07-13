@@ -26,11 +26,20 @@ def switchboard(request):
 def about(request):
     return render(request, 'newmelo_app/about.html')
 
+# @login_required
+# def journal(request, pk):
+# 	journal = User.objects.get(pk=pk)
+# 	entries = Entry.objects.all()
+#     return render(request, 'newmelo_app/journal.html', {'entries': entries})
+
 @login_required
 def journal(request, pk):
-	journal = User.objects.get(pk=pk)
-    entries = Entry.objects.all()
-    return render(request, 'newmelo_app/journal.html', {'entries': entries})
+	if request.user.is_authenticated:
+		entries = Entry.objects.filter(user=pk)
+		return render(request, 'newmelo_app/journal.html', {'entries': entries})
+	else:
+		form = UserCreationForm()
+		return redirect(request, 'newmelo_app/signup.html', {'form': form})
 
 # USERS
 

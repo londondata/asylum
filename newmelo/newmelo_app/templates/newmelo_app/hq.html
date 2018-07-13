@@ -14,11 +14,15 @@
   <div class="background">
     <nav class="fullnav">
     <nav class="mainlinks">
-      <a href="{% url 'hq' %}">hq</a>
+      <a href="{% url 'frontpage' %}">hq</a>
+      <a href="{% url 'about' %}">about</a>
+      {% if user.is_authenticated %}
+      <div>
       <a href="{% url 'switchboard' %}">switchboard</a>
       <a href="{% url 'journal' pk=user.pk %}">journal</a>
       <a href="{% url 'newentry' %}">new entry</a>
-      <a href="{% url 'about' %}">about</a>
+    </div>
+      {% endif %}
     </nav>
     <nav class="loginlinks">
     {% if not user.is_authenticated %}
@@ -42,8 +46,6 @@
   				create an account or sign in to enter the asylum
   			</p>
   	{% endif %}
-
-  {% url 'editentry' pk=entry.pk %}
 
     {% block content %}
 

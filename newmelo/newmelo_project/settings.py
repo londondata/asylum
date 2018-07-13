@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'newmelo_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'newmelo_app',
+        'NAME': 'asylum',
     }
 }
 
@@ -124,4 +124,4 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'newmelo_app/staticfiles')
 
-LOGIN_REDIRECT_URL = 'hq'
+LOGIN_REDIRECT_URL = 'frontpage'
