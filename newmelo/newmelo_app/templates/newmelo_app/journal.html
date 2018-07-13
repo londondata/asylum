@@ -2,23 +2,37 @@
 
 {% block content %}
 
-a user's journal will go here. their profile, posts, etc.
+  <span class="journalheader"><h1>{{user.username}}'s journal</h1></span>
 
-<div class="myjournalentries">
-    <h1>my entries</h1>
-    <ul>
+<div class="userjournal">
+<div class="userprofile">
+  <div class="profiletitle">{{user.username}}</div>
+  <div class="profileinfo">
+    <ul>name: teri</ul>
+    <ul>quote: give me one firm spot on which to stand and i will move the earth</ul>
+    <ul>birthday: 04/24/86</ul>
+    <ul>disposition: exhausted and accomplished</ul>
+    <ul>location: sf</ul>
+  </div>
+</div>
 
-    {% for entry in entries %}
-    {% if user == entry.user %}
-<div class="singlejournalentry">
-    <p>
-      <a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a>
-      {{entry.body}}</a>
-    </p>
-</div>
-    <p>
-</div>
-    {% endif %}
-    {% endfor %}
+  <div class="journalentrycontainer">
+    <h2>entries</h2>
+  <ul>
+  {% for entry in entries %}
+  {% if user == entry.user %}
+  <ul>
+    <div class="entrytitle">
+    <h4><a href="{% url 'entrydetail' pk=entry.pk %}">{{entry.title}}</a></h4></div>
+    <div class="entrybody">
+    {{entry.body}}
+  </div>
   </ul>
+  {% endif %}
+  {% endfor %}
+</ul>
+</div>
+</div>
+</div>
+
 {% endblock %}
